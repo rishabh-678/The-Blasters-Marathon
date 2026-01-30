@@ -1,0 +1,979 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Blasters Marathon</title>
+
+    <style>
+      :root {
+        --primary: #0b4ea2;
+        --accent: #ff6a00;
+        --dark: #222;
+        --light: #ffffff;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", Arial, sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: #f4f6f9;
+        color: var(--dark);
+      }
+
+      /* ================= NAVBAR ================= */
+      header {
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        padding: 18px 70px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: 0.3s;
+      }
+
+      header.scrolled {
+        background: var(--light);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: 800;
+        /* color: var(--primary); */
+        color: #000;
+      }
+      .logo img {
+        height: 58px;
+        width: auto;
+        padding: 6px 10px;
+        /* background: rgba(255, 255, 255, 0.95); */
+        border-radius: 8px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        transition: 0.3s ease;
+      }
+
+      /* Smaller logo on scroll */
+      header.scrolled .logo img {
+        height: 50px;
+        box-shadow: none;
+      }
+
+      nav a {
+        margin-left: 28px;
+        text-decoration: none;
+        font-weight: 600;
+        /* color: var(--accent); */
+        color: #ffffff;
+        position: relative;
+      }
+
+      header.scrolled nav a {
+        color: var(--dark);
+      }
+
+      /* NAV HOVER */
+      nav a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -6px;
+        width: 0;
+        height: 3px;
+        background: var(--primary);
+        transition: 0.3s;
+      }
+
+      nav a:hover::after {
+        width: 100%;
+      }
+
+      /* ================= HERO ================= */
+      .hero {
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* background image */
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(110deg, rgba(7, 102, 218, 0.9) 40%, transparent 40%),
+          url("/Assests/images/background\ image.jpg") center/cover no-repeat;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 520px;
+        padding-left: 80px;
+        color: #fff;
+      }
+
+      .hero h1 {
+        font-size: 56px;
+        line-height: 1.1;
+        margin-bottom: 20px;
+      }
+
+      .hero h1 span {
+        color: var(--accent);
+      }
+
+      .hero p {
+        font-size: 17px;
+        margin-bottom: 28px;
+        opacity: 0.95;
+      }
+
+      /* BUTTON */
+      .btn {
+        display: inline-block;
+        background: var(--accent);
+        color: #fff;
+        padding: 14px 30px;
+        font-weight: 700;
+        text-decoration: none;
+        border-radius: 6px;
+        transition: 0.3s;
+      }
+
+      .btn:hover {
+        background: #ff7d26;
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      /* ================= SECTION ================= */
+      .section {
+        padding: 100px 80px;
+      }
+
+      .section-title {
+        font-size: 40px;
+        text-align: center;
+        margin-bottom: 50px;
+        color: var(--primary);
+      }
+
+      /* ================= ABOUT ================= */
+      /* ================= ABOUT WITH IMAGE ================= */
+      .about-section {
+        background: #fff;
+      }
+
+      .about-wrapper {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 50px;
+        align-items: center;
+        max-width: 1200px;
+        margin: auto;
+      }
+      .about-text h2 span {
+        color: var(--accent);
+      }
+
+      .about-text p {
+        font-size: 17px;
+        color: #555;
+        margin-bottom: 16px;
+        line-height: 1.7;
+      }
+
+      /* IMAGE STYLE */
+      .about-image img {
+        width: 100%;
+        /* border-radius: 18px; */
+        /* box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18); */
+        transition: 0.4s ease;
+      }
+
+      /* SUBTLE HOVER */
+      .about-image img:hover {
+        /* transform: scale(1.03); */
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 900px) {
+        .about-wrapper {
+          grid-template-columns: 1fr;
+        }
+
+        .about-image {
+          order: -1; /* image on top for mobile */
+        }
+
+        .section-title {
+          text-align: center !important;
+        }
+      }
+
+      /* ================= EVENT CARDS ================= */
+
+      /* ================= UPCOMING RACES ================= */
+      /* ================= UPCOMING RACES PARALLAX ================= */
+      .upcoming-parallax {
+        position: relative;
+        min-height: 60vh;
+        background-image: url("https://images.pexels.com/photos/2402777/pexels-photo-2402777.jpeg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        overflow: hidden;
+      }
+
+      /* DARK OVERLAY */
+      .upcoming-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to right,
+          rgba(11, 78, 162, 0.85),
+          rgba(11, 78, 162, 0.65)
+        );
+        z-index: 1;
+      }
+
+      /* CONTENT ABOVE PARALLAX */
+      .upcoming-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      /* TITLE LIGHT */
+      .section-title.light {
+        color: #fff;
+      }
+
+      /* CARD GRID (reuse safe) */
+      .upcoming-grid {
+        max-width: 1000px;
+        margin: 60px auto 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+      }
+
+      /* CARD */
+      .upcoming-card {
+        background: #fff;
+        color: var(--dark);
+        display: flex;
+        gap: 20px;
+        padding: 26px;
+        border-radius: 18px;
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
+        transition: 0.4s ease;
+      }
+
+      .upcoming-card:hover {
+        transform: translateY(-10px);
+      }
+
+      /* DATE */
+      .race-date {
+        background: var(--primary);
+        color: #fff;
+        text-align: center;
+        padding: 14px 18px;
+        border-radius: 12px;
+        min-width: 72px;
+      }
+
+      .race-date span {
+        font-size: 28px;
+        font-weight: 800;
+      }
+
+      /* BUTTON */
+      .race-btn {
+        display: inline-block;
+        background: var(--accent);
+        color: #fff;
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      .race-btn:hover {
+        background: #ff7d26;
+        transform: translateX(5px);
+      }
+
+      /* DATE BOX */
+      .race-date {
+        background: var(--primary);
+        color: #fff;
+        text-align: center;
+        padding: 14px 18px;
+        border-radius: 12px;
+        min-width: 72px;
+      }
+
+      .race-date span {
+        display: block;
+        font-size: 28px;
+        font-weight: 800;
+      }
+
+      .race-date small {
+        font-size: 13px;
+        letter-spacing: 1px;
+      }
+
+      /* INFO */
+      .race-info h3 {
+        font-size: 22px;
+        margin-bottom: 6px;
+      }
+
+      .race-info p {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 14px;
+      }
+
+      /* BUTTON */
+      .race-btn {
+        display: inline-block;
+        background: var(--accent);
+        color: #fff;
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: 0.3s ease;
+      }
+
+      .race-btn:hover {
+        background: #ff7d26;
+        transform: translateX(4px);
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 600px) {
+        .upcoming-card {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .race-date {
+          margin-bottom: 10px;
+        }
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 30px;
+        margin-top: 60px;
+      }
+
+      .card {
+        position: relative;
+        background: #fff;
+        height: 300px;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        cursor: pointer;
+      }
+
+      /* CARD IMAGE */
+      .card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: 0.5s;
+      }
+
+      /* CARD OVERLAY */
+      .card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(11, 78, 162, 0.9),
+          transparent
+        );
+        opacity: 0;
+        transition: 0.4s;
+      }
+
+      /* CARD CONTENT */
+      .card-content {
+        position: absolute;
+        bottom: 0;
+        padding: 25px;
+        color: #fff;
+        transform: translateY(80px);
+        transition: 0.4s;
+      }
+
+      .card h3 {
+        margin-bottom: 10px;
+      }
+
+      /* HOVER EFFECT */
+      .card:hover img {
+        transform: scale(1.1);
+      }
+
+      .card:hover::after {
+        opacity: 1;
+      }
+
+      .card:hover .card-content {
+        transform: translateY(0);
+      }
+
+      /* ================= RESPONSIVE ================= */
+      @media (max-width: 900px) {
+        header {
+          padding: 16px 30px;
+        }
+
+        .hero-content {
+          padding: 0 30px;
+        }
+
+        .hero h1 {
+          font-size: 42px;
+        }
+
+        .section {
+          padding: 80px 30px;
+        }
+      }
+      /* ================= MARATHON FEATURE SECTION ================= */
+      .marathon-feature-section {
+        padding: 120px 80px;
+        background: #ffffff;
+      }
+
+      .marathon-feature-wrapper {
+        max-width: 1200px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+      }
+
+      /* IMAGE STACK */
+      .marathon-feature-images {
+        position: relative;
+      }
+
+      .marathon-feature-images img {
+        width: 100%;
+        border-radius: 18px;
+        object-fit: cover;
+      }
+
+      /* LARGE IMAGE */
+      .marathon-img-large {
+        width: 75%;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+      }
+
+      /* SMALL IMAGE */
+      .marathon-img-small {
+        position: absolute;
+        right: 0;
+        bottom: -60px;
+        width: 55%;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      }
+
+      /* CONTENT */
+      .marathon-feature-content h2 {
+        font-size: 38px;
+        margin-bottom: 20px;
+        color: var(--primary);
+        line-height: 1.2;
+      }
+
+      .marathon-feature-content p {
+        font-size: 16px;
+        line-height: 1.8;
+        color: #555;
+        margin-bottom: 18px;
+      }
+
+      /* LINK */
+      .marathon-link {
+        display: inline-block;
+        margin-top: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--accent);
+        text-decoration: none;
+        border-bottom: 2px solid var(--accent);
+        padding-bottom: 4px;
+        transition: 0.3s ease;
+      }
+
+      .marathon-link:hover {
+        color: var(--primary);
+        border-color: var(--primary);
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 900px) {
+        .marathon-feature-section {
+          padding: 90px 30px;
+        }
+
+        .marathon-feature-wrapper {
+          grid-template-columns: 1fr;
+          gap: 50px;
+        }
+
+        .marathon-img-large {
+          width: 100%;
+        }
+
+        .marathon-img-small {
+          position: relative;
+          width: 80%;
+          bottom: 0;
+          margin-top: 20px;
+        }
+      }
+      .marathon-feature-content h2 span {
+        color: var(--accent);
+      }
+      /* ================= REVERSE LAYOUT ================= */
+      .marathon-feature-section.reverse .marathon-feature-wrapper {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .marathon-feature-section.reverse .marathon-feature-images {
+        order: 2;
+      }
+
+      .marathon-feature-section.reverse .marathon-feature-content {
+        order: 1;
+      }
+
+      /* MOBILE FIX */
+      @media (max-width: 900px) {
+        .marathon-feature-section.reverse .marathon-feature-images {
+          order: -1;
+        }
+      }
+      /* ================= FOOTER ================= */
+      .site-footer {
+        background: var(--dark);
+        color: #ccc;
+        padding: 80px 80px 30px;
+      }
+
+      .footer-container {
+        max-width: 1200px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 50px;
+      }
+
+      /* BRAND */
+      .footer-col h3 {
+        color: #fff;
+        margin-bottom: 18px;
+        font-size: 22px;
+      }
+
+      .footer-col h4 {
+        color: #fff;
+        margin-bottom: 18px;
+        font-size: 16px;
+      }
+
+      .footer-col p {
+        font-size: 14px;
+        line-height: 1.7;
+        color: #bbb;
+      }
+
+      /* LINKS */
+      .footer-col ul {
+        list-style: none;
+      }
+
+      .footer-col ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-col ul li a {
+        text-decoration: none;
+        color: #bbb;
+        font-size: 14px;
+        transition: 0.3s ease;
+      }
+
+      .footer-col ul li a:hover {
+        color: var(--accent);
+        padding-left: 4px;
+      }
+
+      /* BOTTOM */
+      .footer-bottom {
+        margin-top: 60px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 20px;
+        text-align: center;
+        font-size: 13px;
+        color: #888;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 768px) {
+        .site-footer {
+          padding: 60px 30px 25px;
+        }
+
+        .footer-bottom {
+          margin-top: 40px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- NAV -->
+    <header id="header">
+      <a href="The Blasters Maharathon" class="logo"
+        >The Blasters Maharathon
+        <!-- <img
+          src="Assests/images/blaster logo.png"
+          alt="The Blasters Marathon Logo"
+        /> -->
+      </a>
+      <nav>
+        <a href="#">Home</a>
+        <a href="#about">About</a>
+        <a href="#events">Our Events</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Marathon <span>Training</span></h1>
+        <p>
+          The Blasters Marathon is where endurance meets passion. Train harder,
+          run smarter, and race stronger.
+        </p>
+        <a href="#events" class="btn">Start Now</a>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section about-section" id="about">
+      <div class="about-wrapper">
+        <!-- LEFT CONTENT -->
+        <div class="about-text reveal">
+          <h2 class="section-title" style="text-align: left">
+            About The Blasters <span>Marathon</span>
+          </h2>
+          <p>
+            The Blasters Marathon is a professionally organized running event
+            focused on endurance, discipline, and community spirit. Designed for
+            beginners to elite athletes, our marathon celebrates fitness,
+            determination, and achievement.
+          </p>
+          <p>
+            With certified routes, expert support, and an energetic atmosphere,
+            we create unforgettable race-day experiences.
+          </p>
+        </div>
+
+        <!-- RIGHT IMAGE -->
+        <div class="about-image reveal">
+          <img
+            src="/Assests/images/about us.jpg"
+            alt="Blasters Marathon Runners"
+          />
+        </div>
+      </div>
+    </section>
+    <section class="upcoming-parallax" id="upcoming">
+      <div class="upcoming-overlay"></div>
+
+      <div class="section upcoming-content">
+        <h2 class="section-title light">Upcoming <span>Races</span></h2>
+
+        <div class="upcoming-grid">
+          <div class="upcoming-card reveal">
+            <div class="race-date">
+              <span>15</span>
+              <small>MAR</small>
+            </div>
+            <div class="race-info">
+              <h3>5 KM Fun Run</h3>
+              <p>Faridabad · Beginner Friendly</p>
+              <a href="#" class="race-btn">Register</a>
+            </div>
+          </div>
+
+          <div class="upcoming-card reveal">
+            <div class="race-date">
+              <span>07</span>
+              <small>APR</small>
+            </div>
+            <div class="race-info">
+              <h3>10 KM Challenge</h3>
+              <p>Delhi · Timed Race</p>
+              <a href="#" class="race-btn">Register</a>
+            </div>
+          </div>
+
+          <div class="upcoming-card reveal">
+            <div class="race-date">
+              <span>21</span>
+              <small>MAY</small>
+            </div>
+            <div class="race-info">
+              <h3>Half Marathon</h3>
+              <p>Gurgaon · Elite Category</p>
+              <a href="#" class="race-btn">Register</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EVENTS -->
+    <section class="section" id="events">
+      <h2 class="section-title">Our <span> Events</span></h2>
+
+      <div class="cards">
+        <div class="card">
+          <img
+            src="https://images.pexels.com/photos/2402777/pexels-photo-2402777.jpeg"
+          />
+          <div class="card-content">
+            <h3>5 KM Fun Run</h3>
+            <p>Perfect for beginners & families.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <img
+            src="https://images.pexels.com/photos/3763876/pexels-photo-3763876.jpeg"
+          />
+          <div class="card-content">
+            <h3>10 KM Challenge</h3>
+            <p>Push your endurance to the next level.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <img
+            src="https://images.pexels.com/photos/2402775/pexels-photo-2402775.jpeg"
+          />
+          <div class="card-content">
+            <h3>Half Marathon</h3>
+            <p>For experienced and competitive runners.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img
+            src="https://images.pexels.com/photos/2402775/pexels-photo-2402775.jpeg"
+          />
+          <div class="card-content">
+            <h3>Half Marathon</h3>
+            <p>For experienced and competitive runners.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img
+            src="https://images.pexels.com/photos/2402775/pexels-photo-2402775.jpeg"
+          />
+          <div class="card-content">
+            <h3>Half Marathon</h3>
+            <p>For experienced and competitive runners.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img
+            src="https://images.pexels.com/photos/2402775/pexels-photo-2402775.jpeg"
+          />
+          <div class="card-content">
+            <h3>Half Marathon</h3>
+            <p>For experienced and competitive runners.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="marathon-feature-section">
+      <div class="marathon-feature-wrapper">
+        <!-- LEFT IMAGES -->
+        <div class="marathon-feature-images">
+          <div class="marathon-img-large">
+            <img
+              src="https://images.pexels.com/photos/2402777/pexels-photo-2402777.jpeg"
+              alt="Blasters Marathon Runners"
+            />
+          </div>
+
+          <div class="marathon-img-small">
+            <img
+              src="https://images.pexels.com/photos/3763876/pexels-photo-3763876.jpeg"
+              alt="Marathon Finish Line"
+            />
+          </div>
+        </div>
+
+        <!-- RIGHT CONTENT -->
+        <div class="marathon-feature-content">
+          <h2>Experience The Blasters<span> Marathon</span></h2>
+
+          <p>
+            The Blasters Marathon is more than a race — it’s an experience built
+            on passion, endurance, and community spirit. Every route is
+            carefully planned, every detail professionally managed.
+          </p>
+
+          <p>
+            From first-time runners to elite athletes, we create an environment
+            that motivates you to push limits and celebrate every milestone.
+          </p>
+
+          <a href="#register" class="marathon-link">Join the Movement</a>
+        </div>
+      </div>
+    </section>
+    <section class="marathon-feature-section reverse">
+      <div class="marathon-feature-wrapper">
+        <!-- LEFT CONTENT -->
+        <div class="marathon-feature-content">
+          <h2>Run With Confidence</h2>
+
+          <p>
+            At The Blasters Marathon, runner safety and experience come first.
+            From professionally certified routes to on-ground medical support,
+            every detail is carefully planned.
+          </p>
+
+          <p>
+            Whether you are chasing a personal best or running your first race,
+            we ensure a smooth, motivating, and unforgettable marathon journey.
+          </p>
+
+          <a href="#upcoming" class="marathon-link">View Upcoming Races</a>
+        </div>
+
+        <!-- RIGHT IMAGES -->
+        <div class="marathon-feature-images">
+          <div class="marathon-img-large">
+            <img
+              src="https://images.pexels.com/photos/2402775/pexels-photo-2402775.jpeg"
+              alt="Marathon Crowd"
+            />
+          </div>
+
+          <div class="marathon-img-small">
+            <img
+              src="https://images.pexels.com/photos/3764011/pexels-photo-3764011.jpeg"
+              alt="Runners at Start Line"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="site-footer" id="contact">
+      <div class="footer-container">
+        <!-- BRAND -->
+        <div class="footer-col">
+          <h3>The Blasters Marathon</h3>
+          <p>
+            A professionally organized running event built on endurance,
+            discipline, and community spirit. From first-time runners to elite
+            athletes — everyone belongs here.
+          </p>
+        </div>
+
+        <!-- QUICK LINKS -->
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#events">Our Events</a></li>
+            <li><a href="#upcoming">Upcoming Races</a></li>
+            <li><a href="#register">Register</a></li>
+          </ul>
+        </div>
+
+        <!-- EVENTS -->
+        <div class="footer-col">
+          <h4>Race Categories</h4>
+          <ul>
+            <li>5 KM Fun Run</li>
+            <li>10 KM Challenge</li>
+            <li>Half Marathon</li>
+            <li>City Runs</li>
+          </ul>
+        </div>
+
+        <!-- CONTACT -->
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <p>Email: info@blastersmarathon.com</p>
+          <p>Phone: +91 98765 43210</p>
+          <p>Location: Haryana, India</p>
+        </div>
+      </div>
+
+      <!-- BOTTOM -->
+      <div class="footer-bottom">
+        <p>© 2026 The Blasters Marathon. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      const header = document.getElementById("header");
+
+      window.addEventListener("scroll", () => {
+        header.classList.toggle("scrolled", window.scrollY > 80);
+      });
+
+      /* SECTION PARALLAX */
+      const upcoming = document.querySelector(".upcoming-parallax");
+
+      window.addEventListener("scroll", () => {
+        const rect = upcoming.getBoundingClientRect();
+        const scrollPos = window.innerHeight - rect.top;
+
+        if (scrollPos > 0 && rect.bottom > 0) {
+          upcoming.style.backgroundPositionY = -(scrollPos * 0.25) + "px";
+        }
+      });
+    </script>
+  </body>
+</html>
