@@ -4,976 +4,607 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Blasters Marathon</title>
-
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Outfit:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
       :root {
-        --primary: #0b4ea2;
-        --accent: #ff6a00;
-        --dark: #222;
-        --light: #ffffff;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Poppins", Arial, sans-serif;
-      }
-
-      html {
-        scroll-behavior: smooth;
+        --accent-blue: #0070f3;
+        --accent-orange: #ff4d00;
       }
 
       body {
-        background: #f4f6f9;
-        color: var(--dark);
-      }
-
-      /* ================= NAVBAR ================= */
-      header {
-        position: fixed;
-        width: 100%;
-        top: 0;
-        z-index: 1000;
-        padding: 18px 70px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        transition: 0.3s;
-      }
-
-      header.scrolled {
-        background: var(--light);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-      }
-
-      .logo {
-        font-size: 24px;
-        font-weight: 800;
-        /* color: var(--primary); */
-        color: #000;
-      }
-      .logo img {
-        height: 58px;
-        width: auto;
-        padding: 6px 10px;
-        /* background: rgba(255, 255, 255, 0.95); */
-        border-radius: 8px;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-        transition: 0.3s ease;
-      }
-
-      /* Smaller logo on scroll */
-      header.scrolled .logo img {
-        height: 50px;
-        box-shadow: none;
-      }
-
-      nav a {
-        margin-left: 28px;
-        text-decoration: none;
-        font-weight: 600;
-        /* color: var(--accent); */
-        color: #ffffff;
-        position: relative;
-      }
-
-      header.scrolled nav a {
-        color: var(--dark);
-      }
-
-      /* NAV HOVER */
-      nav a::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: -6px;
-        width: 0;
-        height: 3px;
-        background: var(--primary);
-        transition: 0.3s;
-      }
-
-      nav a:hover::after {
-        width: 100%;
-      }
-
-      /* ================= HERO ================= */
-      .hero {
-        height: 90vh;
-        display: flex;
-        align-items: center;
-        position: relative;
-        overflow: hidden;
-      }
-
-      /* background image */
-      .hero::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background:
-          linear-gradient(110deg, rgba(7, 102, 218, 0.9) 40%, transparent 40%),
-          url("/Assests/images/background\ image.jpg") center/cover no-repeat;
-      }
-
-      .hero-content {
-        position: relative;
-        z-index: 2;
-        max-width: 520px;
-        padding-left: 80px;
+        font-family: "Outfit", sans-serif;
+        background-color: #000;
         color: #fff;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
       }
 
-      .hero h1 {
-        font-size: 56px;
-        line-height: 1.1;
-        margin-bottom: 20px;
+      .font-athletic {
+        font-family: "Anton", sans-serif;
+        text-transform: uppercase;
+        letter-spacing: -0.01em;
       }
 
-      .hero h1 span {
-        color: var(--accent);
-      }
-
-      .hero p {
-        font-size: 17px;
-        margin-bottom: 28px;
-        opacity: 0.95;
-      }
-
-      /* BUTTON */
-      .btn {
-        display: inline-block;
-        background: var(--accent);
-        color: #fff;
-        padding: 14px 30px;
-        font-weight: 700;
-        text-decoration: none;
-        border-radius: 6px;
-        transition: 0.3s;
-      }
-
-      .btn:hover {
-        background: #ff7d26;
-        transform: translateY(-4px);
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-      }
-
-      /* ================= SECTION ================= */
-      .section {
-        padding: 100px 80px;
-      }
-
-      .section-title {
-        font-size: 40px;
-        text-align: center;
-        margin-bottom: 50px;
-        color: var(--primary);
-      }
-
-      /* ================= ABOUT ================= */
-      /* ================= ABOUT WITH IMAGE ================= */
-      .about-section {
-        background: #fff;
-      }
-
-      .about-wrapper {
-        display: grid;
-        grid-template-columns: 1.1fr 0.9fr;
-        gap: 50px;
-        align-items: center;
-        max-width: 1200px;
-        margin: auto;
-      }
-      .about-text h2 span {
-        color: var(--accent);
-      }
-
-      .about-text p {
-        font-size: 17px;
-        color: #555;
-        margin-bottom: 16px;
-        line-height: 1.7;
-      }
-
-      /* IMAGE STYLE */
-      .about-image img {
-        width: 100%;
-        /* border-radius: 18px; */
-        /* box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18); */
-        transition: 0.4s ease;
-      }
-
-      /* SUBTLE HOVER */
-      .about-image img:hover {
-        /* transform: scale(1.03); */
-      }
-
-      /* RESPONSIVE */
-      @media (max-width: 900px) {
-        .about-wrapper {
-          grid-template-columns: 1fr;
-        }
-
-        .about-image {
-          order: -1; /* image on top for mobile */
-        }
-
-        .section-title {
-          text-align: center !important;
-        }
-      }
-
-      /* ================= EVENT CARDS ================= */
-
-      /* ================= UPCOMING RACES ================= */
-      /* ================= UPCOMING RACES PARALLAX ================= */
-      .upcoming-parallax {
-        position: relative;
-        min-height: 60vh;
-        background-image: url("https://images.pexels.com/photos/2402777/pexels-photo-2402777.jpeg");
-        background-size: cover;
+      /* Fixed Background Parallax Logic */
+      .parallax-bg {
+        background-image: url("/Assests/images/background\ image.jpg");
+        background-attachment: fixed;
         background-position: center;
         background-repeat: no-repeat;
-        overflow: hidden;
+        background-size: cover;
       }
 
-      /* DARK OVERLAY */
-      .upcoming-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          to right,
-          rgba(11, 78, 162, 0.85),
-          rgba(11, 78, 162, 0.65)
-        );
-        z-index: 1;
-      }
-
-      /* CONTENT ABOVE PARALLAX */
-      .upcoming-content {
-        position: relative;
-        z-index: 2;
-      }
-
-      /* TITLE LIGHT */
-      .section-title.light {
-        color: #fff;
-      }
-
-      /* CARD GRID (reuse safe) */
-      .upcoming-grid {
-        max-width: 1000px;
-        margin: 60px auto 0;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 30px;
-      }
-
-      /* CARD */
-      .upcoming-card {
-        background: #fff;
-        color: var(--dark);
-        display: flex;
-        gap: 20px;
-        padding: 26px;
-        border-radius: 18px;
-        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
-        transition: 0.4s ease;
-      }
-
-      .upcoming-card:hover {
-        transform: translateY(-10px);
-      }
-
-      /* DATE */
-      .race-date {
-        background: var(--primary);
-        color: #fff;
-        text-align: center;
-        padding: 14px 18px;
-        border-radius: 12px;
-        min-width: 72px;
-      }
-
-      .race-date span {
-        font-size: 28px;
-        font-weight: 800;
-      }
-
-      /* BUTTON */
-      .race-btn {
-        display: inline-block;
-        background: var(--accent);
-        color: #fff;
-        padding: 8px 20px;
-        border-radius: 20px;
-        font-size: 14px;
-        font-weight: 700;
-        text-decoration: none;
-        transition: 0.3s;
-      }
-
-      .race-btn:hover {
-        background: #ff7d26;
-        transform: translateX(5px);
-      }
-
-      /* DATE BOX */
-      .race-date {
-        background: var(--primary);
-        color: #fff;
-        text-align: center;
-        padding: 14px 18px;
-        border-radius: 12px;
-        min-width: 72px;
-      }
-
-      .race-date span {
-        display: block;
-        font-size: 28px;
-        font-weight: 800;
-      }
-
-      .race-date small {
-        font-size: 13px;
-        letter-spacing: 1px;
-      }
-
-      /* INFO */
-      .race-info h3 {
-        font-size: 22px;
-        margin-bottom: 6px;
-      }
-
-      .race-info p {
-        font-size: 14px;
-        color: #666;
-        margin-bottom: 14px;
-      }
-
-      /* BUTTON */
-      .race-btn {
-        display: inline-block;
-        background: var(--accent);
-        color: #fff;
-        padding: 8px 20px;
-        border-radius: 20px;
-        font-size: 14px;
-        font-weight: 700;
-        text-decoration: none;
-        transition: 0.3s ease;
-      }
-
-      .race-btn:hover {
-        background: #ff7d26;
-        transform: translateX(4px);
-      }
-
-      /* RESPONSIVE */
-      @media (max-width: 600px) {
-        .upcoming-card {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .race-date {
-          margin-bottom: 10px;
-        }
-      }
-
-      .cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 30px;
-        margin-top: 60px;
-      }
-
-      .card {
-        position: relative;
-        background: #fff;
-        height: 300px;
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-        cursor: pointer;
-      }
-
-      /* CARD IMAGE */
-      .card img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: 0.5s;
-      }
-
-      /* CARD OVERLAY */
-      .card::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          to top,
-          rgba(11, 78, 162, 0.9),
-          transparent
-        );
+      /* Scroll Reveal Animation Styles */
+      .reveal {
         opacity: 0;
-        transition: 0.4s;
+        transform: translateY(40px);
+        transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1);
       }
 
-      /* CARD CONTENT */
-      .card-content {
-        position: absolute;
-        bottom: 0;
-        padding: 25px;
-        color: #fff;
-        transform: translateY(80px);
-        transition: 0.4s;
-      }
-
-      .card h3 {
-        margin-bottom: 10px;
-      }
-
-      /* HOVER EFFECT */
-      .card:hover img {
-        transform: scale(1.1);
-      }
-
-      .card:hover::after {
+      .reveal.active {
         opacity: 1;
-      }
-
-      .card:hover .card-content {
         transform: translateY(0);
       }
 
-      /* ================= RESPONSIVE ================= */
-      @media (max-width: 900px) {
-        header {
-          padding: 16px 30px;
-        }
-
-        .hero-content {
-          padding: 0 30px;
-        }
-
-        .hero h1 {
-          font-size: 42px;
-        }
-
-        .section {
-          padding: 80px 30px;
-        }
+      /* Glassmorphism for Blog Cards */
+      .blog-card {
+        transition: all 0.4s ease;
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
       }
-      /* ================= MARATHON FEATURE SECTION ================= */
-      .marathon-feature-section {
-        padding: 120px 80px;
-        background: #ffffff;
+      .blog-card:hover {
+        transform: translateY(-12px);
+        border-color: var(--accent-orange);
+        background: rgba(255, 255, 255, 0.08);
       }
 
-      .marathon-feature-wrapper {
-        max-width: 1200px;
-        margin: auto;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 80px;
-        align-items: center;
-      }
-
-      /* IMAGE STACK */
-      .marathon-feature-images {
+      /* Dynamic Button Accents */
+      .btn-premium {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
+        overflow: hidden;
       }
 
-      .marathon-feature-images img {
-        width: 100%;
-        border-radius: 18px;
-        object-fit: cover;
+      .btn-orange {
+        background-color: var(--accent-orange);
+        color: white;
+      }
+      .btn-orange:hover {
+        background-color: #fff;
+        color: #000;
+        transform: scale(1.05);
       }
 
-      /* LARGE IMAGE */
-      .marathon-img-large {
-        width: 75%;
-        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+      .btn-outline-blue {
+        border: 2px solid var(--accent-blue);
+        color: var(--accent-blue);
+      }
+      .btn-outline-blue:hover {
+        background-color: var(--accent-blue);
+        color: white;
       }
 
-      /* SMALL IMAGE */
-      .marathon-img-small {
-        position: absolute;
-        right: 0;
-        bottom: -60px;
-        width: 55%;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      /* Timer Font */
+      .timer-font {
+        font-family: "Courier New", Courier, monospace;
       }
 
-      /* CONTENT */
-      .marathon-feature-content h2 {
-        font-size: 38px;
-        margin-bottom: 20px;
-        color: var(--primary);
-        line-height: 1.2;
-      }
-
-      .marathon-feature-content p {
-        font-size: 16px;
-        line-height: 1.8;
-        color: #555;
-        margin-bottom: 18px;
-      }
-
-      /* LINK */
-      .marathon-link {
-        display: inline-block;
-        margin-top: 10px;
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--accent);
-        text-decoration: none;
-        border-bottom: 2px solid var(--accent);
-        padding-bottom: 4px;
-        transition: 0.3s ease;
-      }
-
-      .marathon-link:hover {
-        color: var(--primary);
-        border-color: var(--primary);
-      }
-
-      /* RESPONSIVE */
-      @media (max-width: 900px) {
-        .marathon-feature-section {
-          padding: 90px 30px;
-        }
-
-        .marathon-feature-wrapper {
-          grid-template-columns: 1fr;
-          gap: 50px;
-        }
-
-        .marathon-img-large {
-          width: 100%;
-        }
-
-        .marathon-img-small {
-          position: relative;
-          width: 80%;
-          bottom: 0;
-          margin-top: 20px;
-        }
-      }
-      .marathon-feature-content h2 span {
-        color: var(--accent);
-      }
-      /* ================= REVERSE LAYOUT ================= */
-      .marathon-feature-section.reverse .marathon-feature-wrapper {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .marathon-feature-section.reverse .marathon-feature-images {
-        order: 2;
-      }
-
-      .marathon-feature-section.reverse .marathon-feature-content {
-        order: 1;
-      }
-
-      /* MOBILE FIX */
-      @media (max-width: 900px) {
-        .marathon-feature-section.reverse .marathon-feature-images {
-          order: -1;
-        }
-      }
-      /* ================= FOOTER ================= */
-      .site-footer {
-        background: var(--dark);
-        color: #ccc;
-        padding: 80px 80px 30px;
-      }
-
-      .footer-container {
-        max-width: 1200px;
-        margin: auto;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 50px;
-      }
-
-      /* BRAND */
-      .footer-col h3 {
-        color: #fff;
-        margin-bottom: 18px;
-        font-size: 22px;
-      }
-
-      .footer-col h4 {
-        color: #fff;
-        margin-bottom: 18px;
-        font-size: 16px;
-      }
-
-      .footer-col p {
-        font-size: 14px;
-        line-height: 1.7;
-        color: #bbb;
-      }
-
-      /* LINKS */
-      .footer-col ul {
-        list-style: none;
-      }
-
-      .footer-col ul li {
-        margin-bottom: 10px;
-      }
-
-      .footer-col ul li a {
-        text-decoration: none;
-        color: #bbb;
-        font-size: 14px;
-        transition: 0.3s ease;
-      }
-
-      .footer-col ul li a:hover {
-        color: var(--accent);
-        padding-left: 4px;
-      }
-
-      /* BOTTOM */
-      .footer-bottom {
-        margin-top: 60px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        padding-top: 20px;
-        text-align: center;
-        font-size: 13px;
-        color: #888;
-      }
-
-      /* RESPONSIVE */
-      @media (max-width: 768px) {
-        .site-footer {
-          padding: 60px 30px 25px;
-        }
-
-        .footer-bottom {
-          margin-top: 40px;
-        }
+      nav {
+        transition: transform 0.3s ease;
       }
     </style>
   </head>
-
   <body>
-    <!-- NAV -->
-    <header id="header">
-      <a href="The Blasters Maharathon" class="logo"
-        >The Blasters Maharathon
-        <!-- <img
-          src="Assests/images/blaster logo.png"
-          alt="The Blasters Marathon Logo"
-        /> -->
-      </a>
-      <nav>
-        <a href="#">Home</a>
-        <a href="#about">About</a>
-        <a href="#events">Our Events</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </header>
+    <div
+      class="bg-orange-600 py-3 fixed w-full top-0 z-[100] border-b border-orange-500 shadow-lg"
+    >
+      <div class="container mx-auto px-6 flex justify-between items-center">
+        <span class="font-athletic tracking-widest text-sm hidden md:block"
+          >Next Global Qualifier:</span
+        >
+        <div
+          id="countdown"
+          class="timer-font font-bold text-xl md:text-2xl tracking-tighter mx-auto md:mx-0"
+        >
+          00D : 00H : 00M : 00S
+        </div>
+        <a
+          href="#"
+          class="bg-black text-white text-[10px] px-4 py-1 rounded-full font-bold uppercase tracking-widest hidden md:block"
+          >Entry Live</a
+        >
+      </div>
+    </div>
 
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-content">
-        <h1>Marathon <span>Training</span></h1>
-        <p>
-          The Blasters Marathon is where endurance meets passion. Train harder,
-          run smarter, and race stronger.
+    <nav
+      class="fixed w-full z-50 flex justify-between items-center px-6 md:px-10 py-6 mt-12 mix-blend-difference"
+    >
+      <!-- LOGO -->
+      <div class="text-2xl font-athletic tracking-tighter">
+        Your <span></span>Logo
+      </div>
+
+      <!-- DESKTOP MENU -->
+      <div
+        class="hidden md:flex space-x-8 uppercase text-[10px] tracking-[0.3em] font-bold"
+      >
+        <a href="#about" class="hover:text-blue-500 transition">Philosophy</a>
+        <a href="#journal" class="hover:text-orange-500 transition">Journal</a>
+        <a href="#events" class="hover:text-orange-500 transition">Events</a>
+        <button
+          class="px-6 py-2 border border-white rounded-full hover:bg-white hover:text-black transition"
+        >
+          Join
+        </button>
+      </div>
+
+      <!-- HAMBURGER (MOBILE ONLY) -->
+      <button
+        id="menuBtn"
+        class="md:hidden flex flex-col gap-1 z-50"
+        aria-label="Menu"
+      >
+        <span class="w-6 h-[2px] bg-white"></span>
+        <span class="w-6 h-[2px] bg-white"></span>
+        <span class="w-6 h-[2px] bg-white"></span>
+      </button>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div
+      id="mobileMenu"
+      class="fixed inset-0 bg-black z-40 flex flex-col items-center justify-center space-y-8 text-white uppercase tracking-widest text-sm font-bold opacity-0 pointer-events-none transition-all duration-500"
+    >
+      <a href="#about" class="hover:text-blue-500">Philosophy</a>
+      <a href="#journal" class="hover:text-orange-500">Journal</a>
+      <a href="#events" class="hover:text-orange-500">Events</a>
+      <button
+        class="px-8 py-3 border border-white rounded-full hover:bg-white hover:text-black transition"
+      >
+        Join
+      </button>
+    </div>
+
+    <section
+      class="relative h-screen flex items-center justify-center text-center px-4 overflow-hidden"
+    >
+      <div class="absolute inset-0 z-0">
+        <img
+          src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?q=80&w=2070&auto=format&fit=crop"
+          class="w-full h-full object-cover grayscale brightness-[0.3]"
+          alt="Runner"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black"
+        ></div>
+      </div>
+
+      <div class="relative z-10">
+        <span
+          class="text-orange-500 font-bold tracking-[0.5em] text-xs mb-4 block uppercase"
+          >The 2026 World Series</span
+        >
+        <h1 class="font-athletic text-7xl md:text-[10rem] mb-4 leading-none">
+          ENDURE<span class="text-blue-600">.</span>
+        </h1>
+        <p
+          class="text-lg md:text-xl font-light tracking-[0.2em] mb-10 opacity-70 uppercase max-w-2xl mx-auto"
+        >
+          Black asphalt. Blue skies.
+          <span class="text-orange-500 font-bold">Orange</span> finish lines.
         </p>
-        <a href="#events" class="btn">Start Now</a>
+        <div class="flex flex-col md:flex-row gap-4 justify-center">
+          <a
+            href="#"
+            class="btn-premium btn-orange px-12 py-4 rounded-full font-bold uppercase tracking-widest"
+            >Register Now</a
+          >
+          <a
+            href="#"
+            class="btn-premium btn-outline-blue px-12 py-4 rounded-full font-bold uppercase tracking-widest bg-black/50 backdrop-blur-md"
+            >View Course</a
+          >
+        </div>
       </div>
     </section>
 
-    <!-- ABOUT -->
-    <section class="section about-section" id="about">
-      <div class="about-wrapper">
-        <!-- LEFT CONTENT -->
-        <div class="about-text reveal">
-          <h2 class="section-title" style="text-align: left">
-            About The Blasters <span>Marathon</span>
+    <section id="about" class="py-32 px-10 md:px-20 bg-white text-black reveal">
+      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+        <div class="relative">
+          <div
+            class="absolute -top-10 -left-10 text-[12rem] font-athletic text-zinc-100 -z-10"
+          >
+            01
+          </div>
+          <h2 class="font-athletic text-6xl mb-8">
+            The Science of <span class="text-blue-600">Stamina.</span>
           </h2>
-          <p>
-            The Blasters Marathon is a professionally organized running event
-            focused on endurance, discipline, and community spirit. Designed for
-            beginners to elite athletes, our marathon celebrates fitness,
-            determination, and achievement.
+          <p class="text-xl leading-relaxed text-zinc-600 mb-6">
+            We don't just host races; we engineer experiences. Our tracks are
+            designed for personal bests, featuring low-impact surfaces and
+            elite-level pacing technology.
           </p>
-          <p>
-            With certified routes, expert support, and an energetic atmosphere,
-            we create unforgettable race-day experiences.
+          <div class="flex gap-10">
+            <div>
+              <p class="font-athletic text-3xl">42.2K</p>
+              <p class="text-xs uppercase tracking-widest opacity-50">
+                Distance
+              </p>
+            </div>
+            <div>
+              <p class="font-athletic text-3xl text-orange-600">02:01</p>
+              <p class="text-xs uppercase tracking-widest opacity-50">
+                Target Time
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="rounded-2xl overflow-hidden shadow-2xl transition-transform hover:scale-[1.02] duration-700"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1532444458054-01a7dd3e9fca?q=80&w=2072&auto=format&fit=crop"
+            class="grayscale hover:grayscale-0 transition-all duration-1000"
+            alt="Athlete"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section id="journal" class="parallax-bg relative py-32 px-6">
+      <div class="absolute inset-0 bg-black/70 z-0"></div>
+      <div class="relative z-10 max-w-7xl mx-auto">
+        <div class="mb-20 reveal text-center">
+          <h2 class="font-athletic text-6xl mb-4 text-white">
+            The <span class="text-orange-500">Journal</span>
+          </h2>
+          <p class="uppercase tracking-widest text-sm text-zinc-400">
+            Stories of grit and recovery
           </p>
         </div>
 
-        <!-- RIGHT IMAGE -->
-        <div class="about-image reveal">
-          <img
-            src="/Assests/images/about us.jpg"
-            alt="Blasters Marathon Runners"
-          />
-        </div>
-      </div>
-    </section>
-    <section class="upcoming-parallax" id="upcoming">
-      <div class="upcoming-overlay"></div>
-
-      <div class="section upcoming-content">
-        <h2 class="section-title light">Upcoming <span>Races</span></h2>
-
-        <div class="upcoming-grid">
-          <div class="upcoming-card reveal">
-            <div class="race-date">
-              <span>15</span>
-              <small>MAR</small>
-            </div>
-            <div class="race-info">
-              <h3>5 KM Fun Run</h3>
-              <p>Faridabad · Beginner Friendly</p>
-              <a href="#" class="race-btn">Register</a>
-            </div>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="blog-card p-10 rounded-3xl reveal text-white">
+            <span
+              class="text-blue-500 font-bold text-xs uppercase tracking-widest mb-6 block"
+              >Technique</span
+            >
+            <h3 class="text-3xl font-bold mb-4">
+              Efficient Gait: The Midfoot Strike
+            </h3>
+            <p class="text-zinc-400 mb-8 leading-relaxed">
+              How professional athletes shave minutes off their time by
+              adjusting impact points.
+            </p>
+            <a
+              href="#"
+              class="text-orange-500 font-bold hover:text-white transition"
+              >Read Story -></a
+            >
           </div>
 
-          <div class="upcoming-card reveal">
-            <div class="race-date">
-              <span>07</span>
-              <small>APR</small>
-            </div>
-            <div class="race-info">
-              <h3>10 KM Challenge</h3>
-              <p>Delhi · Timed Race</p>
-              <a href="#" class="race-btn">Register</a>
-            </div>
+          <div class="blog-card p-10 rounded-3xl reveal text-white">
+            <span
+              class="text-blue-500 font-bold text-xs uppercase tracking-widest mb-6 block"
+              >Mindset</span
+            >
+            <h3 class="text-3xl font-bold mb-4">Breaking The Wall at 30KM</h3>
+            <p class="text-zinc-400 mb-8 leading-relaxed">
+              Psychological triggers to keep your legs moving when your brain
+              tells you to stop.
+            </p>
+            <a
+              href="#"
+              class="text-orange-500 font-bold hover:text-white transition"
+              >Read Story -></a
+            >
           </div>
 
-          <div class="upcoming-card reveal">
-            <div class="race-date">
-              <span>21</span>
-              <small>MAY</small>
-            </div>
-            <div class="race-info">
-              <h3>Half Marathon</h3>
-              <p>Gurgaon · Elite Category</p>
-              <a href="#" class="race-btn">Register</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- EVENTS -->
-    <section class="section" id="events">
-      <h2 class="section-title">Our <span> Events</span></h2>
-
-      <div class="cards">
-        <div class="card">
-          <img
-            src="https://images.pexels.com/photos/2402777/pexels-photo-2402777.jpeg"
-          />
-          <div class="card-content">
-            <h3>5 KM Fun Run</h3>
-            <p>Perfect for beginners & families.</p>
-          </div>
-        </div>
-
-        <div class="card">
-          <img
-            src="https://images.pexels.com/photos/3763876/pexels-photo-3763876.jpeg"
-          />
-          <div class="card-content">
-            <h3>10 KM Challenge</h3>
-            <p>Push your endurance to the next level.</p>
-          </div>
-        </div>
-
-        <div class="card">
-          <img
-            src="https://images.pexels.com/photos/2402775/pexels-photo-2402775.jpeg"
-          />
-          <div class="card-content">
-            <h3>Half Marathon</h3>
-            <p>For experienced and competitive runners.</p>
-          </div>
-        </div>
-        <div class="card">
-          <img
-            src="https://images.pexels.com/photos/2402775/pexels-photo-2402775.jpeg"
-          />
-          <div class="card-content">
-            <h3>Half Marathon</h3>
-            <p>For experienced and competitive runners.</p>
-          </div>
-        </div>
-        <div class="card">
-          <img
-            src="https://images.pexels.com/photos/2402775/pexels-photo-2402775.jpeg"
-          />
-          <div class="card-content">
-            <h3>Half Marathon</h3>
-            <p>For experienced and competitive runners.</p>
-          </div>
-        </div>
-        <div class="card">
-          <img
-            src="https://images.pexels.com/photos/2402775/pexels-photo-2402775.jpeg"
-          />
-          <div class="card-content">
-            <h3>Half Marathon</h3>
-            <p>For experienced and competitive runners.</p>
+          <div class="blog-card p-10 rounded-3xl reveal text-white">
+            <span
+              class="text-blue-500 font-bold text-xs uppercase tracking-widest mb-6 block"
+              >Gear</span
+            >
+            <h3 class="text-3xl font-bold mb-4">
+              Carbon Plates: Performance Hype?
+            </h3>
+            <p class="text-zinc-400 mb-8 leading-relaxed">
+              We tear down the top 5 marathon shoes of 2026 to see what's
+              actually inside.
+            </p>
+            <a
+              href="#"
+              class="text-orange-500 font-bold hover:text-white transition"
+              >Read Story -></a
+            >
           </div>
         </div>
       </div>
     </section>
-    <section class="marathon-feature-section">
-      <div class="marathon-feature-wrapper">
-        <!-- LEFT IMAGES -->
-        <div class="marathon-feature-images">
-          <div class="marathon-img-large">
+
+    <section id="events" class="py-32 px-10 bg-black">
+      <div class="text-center mb-20 reveal">
+        <h2 class="font-athletic text-5xl md:text-7xl">
+          Upcoming <span class="text-orange-500">Challenges</span>
+        </h2>
+        <div class="h-1 w-24 bg-blue-600 mx-auto mt-4"></div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-10 max-w-7xl mx-auto">
+        <div
+          class="event-card bg-zinc-900 p-10 rounded-3xl border border-zinc-800 reveal"
+        >
+          <span
+            class="text-blue-500 font-bold text-xs tracking-widest uppercase"
+            >Urban Series</span
+          >
+          <h3 class="font-athletic text-3xl my-4">Tokyo Midnight</h3>
+          <p class="text-zinc-500 text-sm mb-8 leading-relaxed">
+            Experience the neon glow of Shinjuku in a high-speed 10k sprint.
+          </p>
+          <a
+            href="#"
+            class="text-xs font-bold uppercase tracking-[0.2em] py-3 border-b-2 border-orange-500 hover:text-orange-500 transition"
+            >Entry Open</a
+          >
+        </div>
+
+        <div
+          class="event-card bg-zinc-900 p-10 rounded-3xl border-2 border-blue-600 reveal"
+        >
+          <span
+            class="text-orange-500 font-bold text-xs tracking-widest uppercase"
+            >World Major</span
+          >
+          <h3 class="font-athletic text-3xl my-4">The Classic 42</h3>
+          <p class="text-zinc-500 text-sm mb-8 leading-relaxed">
+            The pinnacle of endurance. A flat, fast course designed for PB
+            hunters.
+          </p>
+          <a
+            href="#"
+            class="text-xs font-bold uppercase tracking-[0.2em] py-3 border-b-2 border-blue-500 hover:text-blue-500 transition"
+            >Register Now</a
+          >
+        </div>
+
+        <div
+          class="event-card bg-zinc-900 p-10 rounded-3xl border border-zinc-800 reveal"
+        >
+          <span
+            class="text-blue-500 font-bold text-xs tracking-widest uppercase"
+            >Coastal Series</span
+          >
+          <h3 class="font-athletic text-3xl my-4">Alpine Trail</h3>
+          <p class="text-zinc-500 text-sm mb-8 leading-relaxed">
+            Elevation meets elegance. Run through the clouds in the Swiss Peaks.
+          </p>
+          <a
+            href="#"
+            class="text-xs font-bold uppercase tracking-[0.2em] py-3 border-b-2 border-orange-500 hover:text-orange-500 transition"
+            >Coming Soon</a
+          >
+        </div>
+      </div>
+    </section>
+    <section id="about" class="py-32 px-10 md:px-20 bg-white text-black reveal">
+      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+        <div class="relative">
+          <div
+            class="absolute -top-10 -left-10 text-[12rem] font-athletic text-zinc-100 -z-10"
+          >
+            01
+          </div>
+          <h2 class="font-athletic text-6xl mb-8">
+            The Science of <span class="text-blue-600">Stamina.</span>
+          </h2>
+          <p class="text-xl leading-relaxed text-zinc-600 mb-6">
+            We don't just host races; we engineer experiences. Our tracks are
+            designed for personal bests, featuring low-impact surfaces and
+            elite-level pacing technology.
+          </p>
+          <div class="flex gap-10">
+            <div>
+              <p class="font-athletic text-3xl">42.2K</p>
+              <p class="text-xs uppercase tracking-widest opacity-50">
+                Distance
+              </p>
+            </div>
+            <div>
+              <p class="font-athletic text-3xl text-orange-600">02:01</p>
+              <p class="text-xs uppercase tracking-widest opacity-50">
+                Target Time
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="rounded-2xl overflow-hidden shadow-2xl transition-transform hover:scale-[1.02] duration-700"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1532444458054-01a7dd3e9fca?q=80&w=2072&auto=format&fit=crop"
+            class="grayscale hover:grayscale-0 transition-all duration-1000"
+            alt="Athlete"
+          />
+        </div>
+      </div>
+    </section>
+    <section id="about" class="py-32 px-10 md:px-20 bg-white text-black reveal">
+      <div
+        class="max-w-6xl mx-auto flex flex-col md:flex-row-reverse items-center gap-16"
+      >
+        <!-- IMAGE -->
+        <div class="w-full md:w-1/2">
+          <div
+            class="rounded-2xl overflow-hidden shadow-2xl transition-transform hover:scale-[1.02] duration-700"
+          >
             <img
-              src="https://images.pexels.com/photos/2402777/pexels-photo-2402777.jpeg"
-              alt="Blasters Marathon Runners"
+              src="https://images.unsplash.com/photo-1532444458054-01a7dd3e9fca?q=80&w=2072&auto=format&fit=crop"
+              class="grayscale hover:grayscale-0 transition-all duration-1000 w-full h-auto object-cover block"
+              alt="Athlete running"
             />
           </div>
-
-          <div class="marathon-img-small">
-            <img
-              src="https://images.pexels.com/photos/3763876/pexels-photo-3763876.jpeg"
-              alt="Marathon Finish Line"
-            />
-          </div>
         </div>
 
-        <!-- RIGHT CONTENT -->
-        <div class="marathon-feature-content">
-          <h2>Experience The Blasters<span> Marathon</span></h2>
-
-          <p>
-            The Blasters Marathon is more than a race — it’s an experience built
-            on passion, endurance, and community spirit. Every route is
-            carefully planned, every detail professionally managed.
-          </p>
-
-          <p>
-            From first-time runners to elite athletes, we create an environment
-            that motivates you to push limits and celebrate every milestone.
-          </p>
-
-          <a href="#register" class="marathon-link">Join the Movement</a>
-        </div>
-      </div>
-    </section>
-    <section class="marathon-feature-section reverse">
-      <div class="marathon-feature-wrapper">
-        <!-- LEFT CONTENT -->
-        <div class="marathon-feature-content">
-          <h2>Run With Confidence</h2>
-
-          <p>
-            At The Blasters Marathon, runner safety and experience come first.
-            From professionally certified routes to on-ground medical support,
-            every detail is carefully planned.
-          </p>
-
-          <p>
-            Whether you are chasing a personal best or running your first race,
-            we ensure a smooth, motivating, and unforgettable marathon journey.
-          </p>
-
-          <a href="#upcoming" class="marathon-link">View Upcoming Races</a>
-        </div>
-
-        <!-- RIGHT IMAGES -->
-        <div class="marathon-feature-images">
-          <div class="marathon-img-large">
-            <img
-              src="https://images.pexels.com/photos/2402775/pexels-photo-2402775.jpeg"
-              alt="Marathon Crowd"
-            />
+        <!-- TEXT -->
+        <div class="relative w-full md:w-1/2">
+          <div
+            class="absolute -top-16 -left-10 text-[10rem] md:text-[12rem] font-athletic text-zinc-100 -z-10 select-none"
+          >
+            01
           </div>
 
-          <div class="marathon-img-small">
-            <img
-              src="https://images.pexels.com/photos/3764011/pexels-photo-3764011.jpeg"
-              alt="Runners at Start Line"
-            />
+          <h2 class="font-athletic text-5xl md:text-6xl mb-8 leading-tight">
+            The Science of <span class="text-blue-600">Stamina.</span>
+          </h2>
+
+          <p class="text-xl leading-relaxed text-zinc-600 mb-8">
+            We don't just host races; we engineer experiences. Our tracks are
+            designed for personal bests, featuring low-impact surfaces and
+            elite-level pacing technology.
+          </p>
+
+          <div class="flex gap-12">
+            <div>
+              <p class="font-athletic text-3xl">42.2K</p>
+              <p class="text-xs uppercase tracking-widest opacity-50 font-bold">
+                Distance
+              </p>
+            </div>
+            <div>
+              <p class="font-athletic text-3xl text-orange-600">02:01</p>
+              <p class="text-xs uppercase tracking-widest opacity-50 font-bold">
+                Target Time
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </section>
-    <footer class="site-footer" id="contact">
-      <div class="footer-container">
-        <!-- BRAND -->
-        <div class="footer-col">
-          <h3>The Blasters Marathon</h3>
-          <p>
-            A professionally organized running event built on endurance,
-            discipline, and community spirit. From first-time runners to elite
-            athletes — everyone belongs here.
+
+    <footer class="py-20 border-t border-zinc-900 bg-black">
+      <div class="max-w-7xl mx-auto px-10 grid md:grid-cols-3 gap-16 reveal">
+        <div class="col-span-1 md:col-span-1">
+          <div class="font-athletic text-5xl mb-6">
+            Your Logo<span class="text-blue-600">.</span>
+          </div>
+          <p class="text-zinc-500 text-sm leading-relaxed max-w-sm">
+            Providing the infrastructure for human potential since 2012. Our
+            races are globally certified and technologically superior.
           </p>
         </div>
-
-        <!-- QUICK LINKS -->
-        <div class="footer-col">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#events">Our Events</a></li>
-            <li><a href="#upcoming">Upcoming Races</a></li>
-            <li><a href="#register">Register</a></li>
-          </ul>
+        <div
+          class="flex flex-col space-y-4 text-sm font-bold tracking-widest uppercase"
+        >
+          <h4 class="text-orange-500 mb-2">Navigation</h4>
+          <a href="#" class="text-zinc-400 hover:text-white transition"
+            >Philosophy</a
+          >
+          <a href="#" class="text-zinc-400 hover:text-white transition"
+            >Live Results</a
+          >
+          <a href="#" class="text-zinc-400 hover:text-white transition"
+            >Support</a
+          >
         </div>
-
-        <!-- EVENTS -->
-        <div class="footer-col">
-          <h4>Race Categories</h4>
-          <ul>
-            <li>5 KM Fun Run</li>
-            <li>10 KM Challenge</li>
-            <li>Half Marathon</li>
-            <li>City Runs</li>
-          </ul>
-        </div>
-
-        <!-- CONTACT -->
-        <div class="footer-col">
-          <h4>Contact Us</h4>
-          <p>Email: info@blastersmarathon.com</p>
-          <p>Phone: +91 98765 43210</p>
-          <p>Location: Haryana, India</p>
+        <div
+          class="flex flex-col space-y-4 text-sm font-bold tracking-widest uppercase"
+        >
+          <h4 class="text-blue-500 mb-2">Community</h4>
+          <a href="#" class="text-zinc-400 hover:text-white transition"
+            >Instagram</a
+          >
+          <a href="#" class="text-zinc-400 hover:text-white transition"
+            >Strava</a
+          >
+          <a href="#" class="text-zinc-400 hover:text-white transition"
+            >YouTube</a
+          >
         </div>
       </div>
-
-      <!-- BOTTOM -->
-      <div class="footer-bottom">
-        <p>© 2026 The Blasters Marathon. All rights reserved.</p>
+      <div class="mt-20 text-center px-10">
+        <p class="text-[9px] uppercase tracking-[0.5em] text-zinc-600">
+          © 2026. Designed Rishabh Negi.
+        </p>
       </div>
     </footer>
 
     <script>
-      const header = document.getElementById("header");
+      // 1. COUNTDOWN TIMER LOGIC
+      const targetDate = new Date("Dec 31, 2026 23:59:59").getTime();
 
-      window.addEventListener("scroll", () => {
-        header.classList.toggle("scrolled", window.scrollY > 80);
+      function updateTimer() {
+        const now = new Date().getTime();
+        const diff = targetDate - now;
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown").innerHTML =
+          `${d.toString().padStart(2, "0")}D : ${h.toString().padStart(2, "0")}H : ${m.toString().padStart(2, "0")}M : ${s.toString().padStart(2, "0")}S`;
+      }
+      setInterval(updateTimer, 1000);
+      updateTimer();
+
+      // 2. SCROLL REVEAL LOGIC
+      const observerOptions = {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll(".reveal").forEach((el) => {
+        observer.observe(el);
       });
 
-      /* SECTION PARALLAX */
-      const upcoming = document.querySelector(".upcoming-parallax");
-
+      // 3. NAVBAR HIDE/SHOW ON SCROLL
+      let lastScroll = 0;
       window.addEventListener("scroll", () => {
-        const rect = upcoming.getBoundingClientRect();
-        const scrollPos = window.innerHeight - rect.top;
+        const currentScroll = window.pageYOffset;
+        const nav = document.querySelector("nav");
+        const timer = document.querySelector(".bg-orange-600");
 
-        if (scrollPos > 0 && rect.bottom > 0) {
-          upcoming.style.backgroundPositionY = -(scrollPos * 0.25) + "px";
+        if (currentScroll > lastScroll && currentScroll > 200) {
+          nav.style.transform = "translateY(-200%)";
+        } else {
+          nav.style.transform = "translateY(0)";
         }
+        lastScroll = currentScroll;
       });
+    </script>
+    <script>
+      // MOBILE MENU TOGGLE
+      const menuBtn = document.getElementById("menuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+
+      menuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("opacity-0");
+        mobileMenu.classList.toggle("pointer-events-none");
+      });
+
+      // CLOSE MENU ON LINK CLICK
+      document
+        .querySelectorAll("#mobileMenu a, #mobileMenu button")
+        .forEach((el) => {
+          el.addEventListener("click", () => {
+            mobileMenu.classList.add("opacity-0");
+            mobileMenu.classList.add("pointer-events-none");
+          });
+        });
     </script>
   </body>
 </html>

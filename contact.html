@@ -3,251 +3,608 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact Us | The Blasters Marathon</title>
-
+    <title>The Blasters Marathon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Outfit:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
       :root {
-        --primary: #0b4ea2;
-        --accent: #ff6a00;
-        --dark: #222;
-        --light: #ffffff;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: Arial, Helvetica, sans-serif;
+        --accent-blue: #0070f3;
+        --accent-orange: #ff4d00;
       }
 
       body {
-        color: var(--dark);
-        line-height: 1.6;
+        font-family: "Outfit", sans-serif;
+        background-color: #000;
+        color: #fff;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
       }
 
-      /* ================= HEADER ================= */
-      header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        padding: 18px 60px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: #fff;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-        z-index: 1000;
+      .font-athletic {
+        font-family: "Anton", sans-serif;
+        text-transform: uppercase;
+        letter-spacing: -0.01em;
       }
 
-      .logo {
-        display: flex;
-        align-items: center;
+      /* Fixed Background Parallax Logic */
+      .parallax-bg {
+        background-image: url("/Assests/images/background\ image.jpg");
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
       }
 
-      .site-logo {
-        height: 60px;
-        width: auto;
+      /* Scroll Reveal Animation Styles */
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1);
       }
 
-      nav a {
-        margin-left: 24px;
-        text-decoration: none;
-        color: var(--dark);
-        font-weight: 600;
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Glassmorphism for Blog Cards */
+      .blog-card {
+        transition: all 0.4s ease;
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .blog-card:hover {
+        transform: translateY(-12px);
+        border-color: var(--accent-orange);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      /* Dynamic Button Accents */
+      .btn-premium {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
-        padding-bottom: 6px;
+        overflow: hidden;
       }
 
-      nav a::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 0%;
-        height: 2px;
-        background: var(--accent);
-        transition: width 0.3s ease;
+      .btn-orange {
+        background-color: var(--accent-orange);
+        color: white;
+      }
+      .btn-orange:hover {
+        background-color: #fff;
+        color: #000;
+        transform: scale(1.05);
       }
 
-      nav a:hover {
-        color: var(--primary);
+      .btn-outline-blue {
+        border: 2px solid var(--accent-blue);
+        color: var(--accent-blue);
+      }
+      .btn-outline-blue:hover {
+        background-color: var(--accent-blue);
+        color: white;
       }
 
-      nav a:hover::after {
-        width: 100%;
+      /* Timer Font */
+      .timer-font {
+        font-family: "Courier New", Courier, monospace;
       }
 
-      /* ================= PAGE HERO ================= */
-      .page-hero {
-        margin-top: 100px;
-        padding: 80px 60px;
-        background:
-          linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-          url("https://images.pexels.com/photos/2402777/pexels-photo-2402777.jpeg")
-            center/cover;
-        color: #fff;
-        text-align: center;
-      }
-
-      .page-hero h1 {
-        font-size: 48px;
-        margin-bottom: 10px;
-      }
-
-      .page-hero p {
-        font-size: 18px;
-      }
-
-      /* ================= CONTACT ================= */
-      .contact {
-        padding: 80px 60px;
-        background: #f7f7f7;
-      }
-
-      .contact-wrapper {
-        max-width: 1100px;
-        margin: auto;
-        display: flex;
-        gap: 40px;
-        flex-wrap: wrap;
-      }
-
-      .contact-info {
-        flex: 1;
-        min-width: 280px;
-      }
-
-      .contact-info h3 {
-        font-size: 28px;
-        margin-bottom: 15px;
-      }
-
-      .contact-info p {
-        margin-bottom: 12px;
-        color: #555;
-      }
-
-      .contact-form {
-        flex: 1;
-        min-width: 280px;
-        background: #fff;
-        padding: 35px;
-        border-radius: 8px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      }
-
-      .contact-form input,
-      .contact-form textarea {
-        width: 100%;
-        padding: 14px;
-        margin-bottom: 15px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        font-size: 14px;
-      }
-
-      .contact-form textarea {
-        resize: none;
-        height: 130px;
-      }
-
-      .btn {
-        background: var(--accent);
-        color: #fff;
-        padding: 14px 28px;
-        border: none;
-        font-weight: bold;
-        cursor: pointer;
-        border-radius: 4px;
-        transition: all 0.3s ease;
-      }
-
-      .btn:hover {
-        background: var(--primary);
-        transform: translateY(-2px);
-      }
-
-      /* ================= FOOTER ================= */
-      footer {
-        background: #000;
-        color: #ccc;
-        padding: 30px;
-        text-align: center;
-        font-size: 14px;
-      }
-
-      /* RESPONSIVE */
-      @media (max-width: 768px) {
-        header {
-          padding: 16px 30px;
-        }
-
-        nav {
-          display: none;
-        }
-
-        .page-hero h1 {
-          font-size: 36px;
-        }
-
-        .contact {
-          padding: 60px 30px;
-        }
+      nav {
+        transition: transform 0.3s ease;
       }
     </style>
   </head>
-
   <body>
-    <!-- HEADER -->
-    <header id="header">
-      <div class="logo">
-        <a href="index.html">
-          <img
-            src="assets/images/blaster-logo.png"
-            alt="The Blasters Marathon Logo"
-            class="site-logo"
-          />
-        </a>
+    <div
+      class="bg-orange-600 py-3 fixed w-full top-0 z-[100] border-b border-orange-500 shadow-lg"
+    >
+      <div class="container mx-auto px-6 flex justify-between items-center">
+        <span class="font-athletic tracking-widest text-sm hidden md:block"
+          >Next Global Qualifier:</span
+        >
+        <div
+          id="countdown"
+          class="timer-font font-bold text-xl md:text-2xl tracking-tighter mx-auto md:mx-0"
+        >
+          00D : 00H : 00M : 00S
+        </div>
+        <a
+          href="#"
+          class="bg-black text-white text-[10px] px-4 py-1 rounded-full font-bold uppercase tracking-widest hidden md:block"
+          >Entry Live</a
+        >
+      </div>
+    </div>
+
+    <nav
+      class="fixed w-full z-50 flex justify-between items-center px-6 md:px-10 py-6 mt-12 mix-blend-difference"
+    >
+      <!-- LOGO -->
+      <div class="text-2xl font-athletic tracking-tighter">
+        Your <span></span>Logo
       </div>
 
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="index.html#about">About</a>
-        <a href="index.html#races">Races</a>
-        <a href="index.html#reviews">Reviews</a>
-        <a href="contact.html">Contact Us</a>
-      </nav>
-    </header>
+      <!-- DESKTOP MENU -->
+      <div
+        class="hidden md:flex space-x-8 uppercase text-[10px] tracking-[0.3em] font-bold"
+      >
+        <a href="#about" class="hover:text-blue-500 transition">Philosophy</a>
+        <a href="#journal" class="hover:text-orange-500 transition">Journal</a>
+        <a href="#events" class="hover:text-orange-500 transition">Events</a>
+        <button
+          class="px-6 py-2 border border-white rounded-full hover:bg-white hover:text-black transition"
+        >
+          Join
+        </button>
+      </div>
 
-    <!-- PAGE HERO -->
-    <section class="page-hero">
-      <h1>Contact Us</h1>
-      <p>We’d love to hear from you</p>
+      <!-- HAMBURGER (MOBILE ONLY) -->
+      <button
+        id="menuBtn"
+        class="md:hidden flex flex-col gap-1 z-50"
+        aria-label="Menu"
+      >
+        <span class="w-6 h-[2px] bg-white"></span>
+        <span class="w-6 h-[2px] bg-white"></span>
+        <span class="w-6 h-[2px] bg-white"></span>
+      </button>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div
+      id="mobileMenu"
+      class="fixed inset-0 bg-black z-40 flex flex-col items-center justify-center space-y-8 text-white uppercase tracking-widest text-sm font-bold opacity-0 pointer-events-none transition-all duration-500"
+    >
+      <a href="#about" class="hover:text-blue-500">Philosophy</a>
+      <a href="#journal" class="hover:text-orange-500">Journal</a>
+      <a href="#events" class="hover:text-orange-500">Events</a>
+      <button
+        class="px-8 py-3 border border-white rounded-full hover:bg-white hover:text-black transition"
+      >
+        Join
+      </button>
+    </div>
+
+    <section
+      class="relative h-screen flex items-center justify-center text-center px-4 overflow-hidden"
+    >
+      <div class="absolute inset-0 z-0">
+        <img
+          src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?q=80&w=2070&auto=format&fit=crop"
+          class="w-full h-full object-cover grayscale brightness-[0.3]"
+          alt="Runner"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black"
+        ></div>
+      </div>
+
+      <div class="relative z-10">
+        <span
+          class="text-orange-500 font-bold tracking-[0.5em] text-xs mb-4 block uppercase"
+          >The 2026 World Series</span
+        >
+        <h1 class="font-athletic text-7xl md:text-[10rem] mb-4 leading-none">
+          ENDURE<span class="text-blue-600">.</span>
+        </h1>
+        <p
+          class="text-lg md:text-xl font-light tracking-[0.2em] mb-10 opacity-70 uppercase max-w-2xl mx-auto"
+        >
+          Black asphalt. Blue skies.
+          <span class="text-orange-500 font-bold">Orange</span> finish lines.
+        </p>
+        <div class="flex flex-col md:flex-row gap-4 justify-center">
+          <a
+            href="#"
+            class="btn-premium btn-orange px-12 py-4 rounded-full font-bold uppercase tracking-widest"
+            >Register Now</a
+          >
+          <a
+            href="#"
+            class="btn-premium btn-outline-blue px-12 py-4 rounded-full font-bold uppercase tracking-widest bg-black/50 backdrop-blur-md"
+            >View Course</a
+          >
+        </div>
+      </div>
     </section>
 
-    <!-- CONTACT SECTION -->
-    <section class="contact">
-      <div class="contact-wrapper">
-        <div class="contact-info">
-          <h3>Get in Touch</h3>
-          <p><strong>Email:</strong> info@blastersmarathon.com</p>
-          <p><strong>Phone:</strong> +91 98765 43210</p>
-          <p><strong>Location:</strong> India</p>
+    <section id="about" class="py-32 px-10 md:px-20 bg-white text-black reveal">
+      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+        <div class="relative">
+          <div
+            class="absolute -top-10 -left-10 text-[12rem] font-athletic text-zinc-100 -z-10"
+          >
+            01
+          </div>
+          <h2 class="font-athletic text-6xl mb-8">
+            The Science of <span class="text-blue-600">Stamina.</span>
+          </h2>
+          <p class="text-xl leading-relaxed text-zinc-600 mb-6">
+            We don't just host races; we engineer experiences. Our tracks are
+            designed for personal bests, featuring low-impact surfaces and
+            elite-level pacing technology.
+          </p>
+          <div class="flex gap-10">
+            <div>
+              <p class="font-athletic text-3xl">42.2K</p>
+              <p class="text-xs uppercase tracking-widest opacity-50">
+                Distance
+              </p>
+            </div>
+            <div>
+              <p class="font-athletic text-3xl text-orange-600">02:01</p>
+              <p class="text-xs uppercase tracking-widest opacity-50">
+                Target Time
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="rounded-2xl overflow-hidden shadow-2xl transition-transform hover:scale-[1.02] duration-700"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1532444458054-01a7dd3e9fca?q=80&w=2072&auto=format&fit=crop"
+            class="grayscale hover:grayscale-0 transition-all duration-1000"
+            alt="Athlete"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section id="journal" class="parallax-bg relative py-32 px-6">
+      <div class="absolute inset-0 bg-black/70 z-0"></div>
+      <div class="relative z-10 max-w-7xl mx-auto">
+        <div class="mb-20 reveal text-center">
+          <h2 class="font-athletic text-6xl mb-4 text-white">
+            The <span class="text-orange-500">Journal</span>
+          </h2>
+          <p class="uppercase tracking-widest text-sm text-zinc-400">
+            Stories of grit and recovery
+          </p>
         </div>
 
-        <form class="contact-form">
-          <input type="text" placeholder="Your Name" required />
-          <input type="email" placeholder="Your Email" required />
-          <textarea placeholder="Your Message"></textarea>
-          <button type="submit" class="btn">Send Message</button>
-        </form>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="blog-card p-10 rounded-3xl reveal text-white">
+            <span
+              class="text-blue-500 font-bold text-xs uppercase tracking-widest mb-6 block"
+              >Technique</span
+            >
+            <h3 class="text-3xl font-bold mb-4">
+              Efficient Gait: The Midfoot Strike
+            </h3>
+            <p class="text-zinc-400 mb-8 leading-relaxed">
+              How professional athletes shave minutes off their time by
+              adjusting impact points.
+            </p>
+            <a
+              href="#"
+              class="text-orange-500 font-bold hover:text-white transition"
+              >Read Story -></a
+            >
+          </div>
+
+          <div class="blog-card p-10 rounded-3xl reveal text-white">
+            <span
+              class="text-blue-500 font-bold text-xs uppercase tracking-widest mb-6 block"
+              >Mindset</span
+            >
+            <h3 class="text-3xl font-bold mb-4">Breaking The Wall at 30KM</h3>
+            <p class="text-zinc-400 mb-8 leading-relaxed">
+              Psychological triggers to keep your legs moving when your brain
+              tells you to stop.
+            </p>
+            <a
+              href="#"
+              class="text-orange-500 font-bold hover:text-white transition"
+              >Read Story -></a
+            >
+          </div>
+
+          <div class="blog-card p-10 rounded-3xl reveal text-white">
+            <span
+              class="text-blue-500 font-bold text-xs uppercase tracking-widest mb-6 block"
+              >Gear</span
+            >
+            <h3 class="text-3xl font-bold mb-4">
+              Carbon Plates: Performance Hype?
+            </h3>
+            <p class="text-zinc-400 mb-8 leading-relaxed">
+              We tear down the top 5 marathon shoes of 2026 to see what's
+              actually inside.
+            </p>
+            <a
+              href="#"
+              class="text-orange-500 font-bold hover:text-white transition"
+              >Read Story -></a
+            >
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer>
-      <p>© 2026 The Blasters Marathon. All rights reserved.</p>
+    <section id="events" class="py-32 px-10 bg-black">
+      <div class="text-center mb-20 reveal">
+        <h2 class="font-athletic text-5xl md:text-7xl">
+          Upcoming <span class="text-orange-500">Challenges</span>
+        </h2>
+        <div class="h-1 w-24 bg-blue-600 mx-auto mt-4"></div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-10 max-w-7xl mx-auto">
+        <div
+          class="event-card bg-zinc-900 p-10 rounded-3xl border border-zinc-800 reveal"
+        >
+          <span
+            class="text-blue-500 font-bold text-xs tracking-widest uppercase"
+            >Urban Series</span
+          >
+          <h3 class="font-athletic text-3xl my-4">Tokyo Midnight</h3>
+          <p class="text-zinc-500 text-sm mb-8 leading-relaxed">
+            Experience the neon glow of Shinjuku in a high-speed 10k sprint.
+          </p>
+          <a
+            href="#"
+            class="text-xs font-bold uppercase tracking-[0.2em] py-3 border-b-2 border-orange-500 hover:text-orange-500 transition"
+            >Entry Open</a
+          >
+        </div>
+
+        <div
+          class="event-card bg-zinc-900 p-10 rounded-3xl border-2 border-blue-600 reveal"
+        >
+          <span
+            class="text-orange-500 font-bold text-xs tracking-widest uppercase"
+            >World Major</span
+          >
+          <h3 class="font-athletic text-3xl my-4">The Classic 42</h3>
+          <p class="text-zinc-500 text-sm mb-8 leading-relaxed">
+            The pinnacle of endurance. A flat, fast course designed for PB
+            hunters.
+          </p>
+          <a
+            href="#"
+            class="text-xs font-bold uppercase tracking-[0.2em] py-3 border-b-2 border-blue-500 hover:text-blue-500 transition"
+            >Register Now</a
+          >
+        </div>
+
+        <div
+          class="event-card bg-zinc-900 p-10 rounded-3xl border border-zinc-800 reveal"
+        >
+          <span
+            class="text-blue-500 font-bold text-xs tracking-widest uppercase"
+            >Coastal Series</span
+          >
+          <h3 class="font-athletic text-3xl my-4">Alpine Trail</h3>
+          <p class="text-zinc-500 text-sm mb-8 leading-relaxed">
+            Elevation meets elegance. Run through the clouds in the Swiss Peaks.
+          </p>
+          <a
+            href="#"
+            class="text-xs font-bold uppercase tracking-[0.2em] py-3 border-b-2 border-orange-500 hover:text-orange-500 transition"
+            >Coming Soon</a
+          >
+        </div>
+      </div>
+    </section>
+    <section id="about" class="py-32 px-10 md:px-20 bg-white text-black reveal">
+      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+        <div class="relative">
+          <div
+            class="absolute -top-10 -left-10 text-[12rem] font-athletic text-zinc-100 -z-10"
+          >
+            01
+          </div>
+          <h2 class="font-athletic text-6xl mb-8">
+            The Science of <span class="text-blue-600">Stamina.</span>
+          </h2>
+          <p class="text-xl leading-relaxed text-zinc-600 mb-6">
+            We don't just host races; we engineer experiences. Our tracks are
+            designed for personal bests, featuring low-impact surfaces and
+            elite-level pacing technology.
+          </p>
+          <div class="flex gap-10">
+            <div>
+              <p class="font-athletic text-3xl">42.2K</p>
+              <p class="text-xs uppercase tracking-widest opacity-50">
+                Distance
+              </p>
+            </div>
+            <div>
+              <p class="font-athletic text-3xl text-orange-600">02:01</p>
+              <p class="text-xs uppercase tracking-widest opacity-50">
+                Target Time
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="rounded-2xl overflow-hidden shadow-2xl transition-transform hover:scale-[1.02] duration-700"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1532444458054-01a7dd3e9fca?q=80&w=2072&auto=format&fit=crop"
+            class="grayscale hover:grayscale-0 transition-all duration-1000"
+            alt="Athlete"
+          />
+        </div>
+      </div>
+    </section>
+    <section id="about" class="py-32 px-10 md:px-20 bg-white text-black reveal">
+      <div
+        class="max-w-6xl mx-auto flex flex-col md:flex-row-reverse items-center gap-16"
+      >
+        <!-- IMAGE -->
+        <div class="w-full md:w-1/2">
+          <div
+            class="rounded-2xl overflow-hidden shadow-2xl transition-transform hover:scale-[1.02] duration-700"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1532444458054-01a7dd3e9fca?q=80&w=2072&auto=format&fit=crop"
+              class="grayscale hover:grayscale-0 transition-all duration-1000 w-full h-auto object-cover block"
+              alt="Athlete running"
+            />
+          </div>
+        </div>
+
+        <!-- TEXT -->
+        <div class="relative w-full md:w-1/2">
+          <div
+            class="absolute -top-16 -left-10 text-[10rem] md:text-[12rem] font-athletic text-zinc-100 -z-10 select-none"
+          >
+            01
+          </div>
+
+          <h2 class="font-athletic text-5xl md:text-6xl mb-8 leading-tight">
+            The Science of <span class="text-blue-600">Stamina.</span>
+          </h2>
+
+          <p class="text-xl leading-relaxed text-zinc-600 mb-8">
+            We don't just host races; we engineer experiences. Our tracks are
+            designed for personal bests, featuring low-impact surfaces and
+            elite-level pacing technology.
+          </p>
+
+          <div class="flex gap-12">
+            <div>
+              <p class="font-athletic text-3xl">42.2K</p>
+              <p class="text-xs uppercase tracking-widest opacity-50 font-bold">
+                Distance
+              </p>
+            </div>
+            <div>
+              <p class="font-athletic text-3xl text-orange-600">02:01</p>
+              <p class="text-xs uppercase tracking-widest opacity-50 font-bold">
+                Target Time
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="py-20 border-t border-zinc-900 bg-black">
+      <div class="max-w-7xl mx-auto px-10 grid md:grid-cols-3 gap-16 reveal">
+        <div class="col-span-1 md:col-span-1">
+          <div class="font-athletic text-5xl mb-6">
+            Your Logo<span class="text-blue-600">.</span>
+          </div>
+          <p class="text-zinc-500 text-sm leading-relaxed max-w-sm">
+            Providing the infrastructure for human potential since 2012. Our
+            races are globally certified and technologically superior.
+          </p>
+        </div>
+        <div
+          class="flex flex-col space-y-4 text-sm font-bold tracking-widest uppercase"
+        >
+          <h4 class="text-orange-500 mb-2">Navigation</h4>
+          <a href="#" class="text-zinc-400 hover:text-white transition"
+            >Philosophy</a
+          >
+          <a href="#" class="text-zinc-400 hover:text-white transition"
+            >Live Results</a
+          >
+          <a href="#" class="text-zinc-400 hover:text-white transition"
+            >Support</a
+          >
+        </div>
+        <div
+          class="flex flex-col space-y-4 text-sm font-bold tracking-widest uppercase"
+        >
+          <h4 class="text-blue-500 mb-2">Community</h4>
+          <a href="#" class="text-zinc-400 hover:text-white transition"
+            >Instagram</a
+          >
+          <a href="#" class="text-zinc-400 hover:text-white transition"
+            >Strava</a
+          >
+          <a href="#" class="text-zinc-400 hover:text-white transition"
+            >YouTube</a
+          >
+        </div>
+      </div>
+      <div class="mt-20 text-center px-10">
+        <p class="text-[9px] uppercase tracking-[0.5em] text-zinc-600">
+          © 2026. Designed Rishabh Negi.
+        </p>
+      </div>
     </footer>
+
+    <script>
+      // 1. COUNTDOWN TIMER LOGIC
+      const targetDate = new Date("Dec 31, 2026 23:59:59").getTime();
+
+      function updateTimer() {
+        const now = new Date().getTime();
+        const diff = targetDate - now;
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown").innerHTML =
+          `${d.toString().padStart(2, "0")}D : ${h.toString().padStart(2, "0")}H : ${m.toString().padStart(2, "0")}M : ${s.toString().padStart(2, "0")}S`;
+      }
+      setInterval(updateTimer, 1000);
+      updateTimer();
+
+      // 2. SCROLL REVEAL LOGIC
+      const observerOptions = {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll(".reveal").forEach((el) => {
+        observer.observe(el);
+      });
+
+      // 3. NAVBAR HIDE/SHOW ON SCROLL
+      let lastScroll = 0;
+      window.addEventListener("scroll", () => {
+        const currentScroll = window.pageYOffset;
+        const nav = document.querySelector("nav");
+        const timer = document.querySelector(".bg-orange-600");
+
+        if (currentScroll > lastScroll && currentScroll > 200) {
+          nav.style.transform = "translateY(-200%)";
+        } else {
+          nav.style.transform = "translateY(0)";
+        }
+        lastScroll = currentScroll;
+      });
+    </script>
+    <script>
+      // MOBILE MENU TOGGLE
+      const menuBtn = document.getElementById("menuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+
+      menuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("opacity-0");
+        mobileMenu.classList.toggle("pointer-events-none");
+      });
+
+      // CLOSE MENU ON LINK CLICK
+      document
+        .querySelectorAll("#mobileMenu a, #mobileMenu button")
+        .forEach((el) => {
+          el.addEventListener("click", () => {
+            mobileMenu.classList.add("opacity-0");
+            mobileMenu.classList.add("pointer-events-none");
+          });
+        });
+    </script>
   </body>
 </html>
